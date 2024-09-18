@@ -32,12 +32,12 @@ library("airway")
 #3. What is the average and median CO2 uptake of the plants from #Quebec and Mississippi?
 #4. [Optional] In the “airway” example data from Bioconductor, how #many genes are expressed in each sample? How many genes are not expressed in any sample?
 
-```{r cars}
+```{r task4}
 #task4
 data("CO2")
 help(CO2)
-#The CO2 data frame has 84 rows and 5 columns of data from an experiment on the cold tolerance of the grass species Echinochloa crus-galli.
 
+#The CO2 data frame has 84 rows and 5 columns of data from an experiment on the cold tolerance of the grass species Echinochloa crus-galli.
 #The CO2 uptake of six plants from Quebec and six plants from Mississippi was measured at several levels of ambient CO2 concentration. Half the plants of each type were chilled overnight before the experiment was conducted.
 
 mean(CO2$uptake[CO2$Type == "Quebec"])
@@ -54,21 +54,52 @@ d <- filter(d0, d0[,i] == 0)%>%nrow()
 d1[1,i] <- d
 d1[2,i] <- nrow(d0) - d
 }
-
 rownames(d1) <- c("non-exp","exp")
-```
 
-#Write a function that calculates the ratio of the mean and the median of a given vector.
-#This is a helpful measure to detect data with outlying values. Note: See Reference for R language
+```
+Task 5 - R Functions
+#1. Write a function that calculates the ratio of the mean and the median of a given vector. This is a helpful measure to detect data with outlying values. Note: See Reference for R language
 #2. Write a function that ignores the lowest and the highest value from a given vector and calculate the mean.
-#3. Read about piping from here:https://r4ds.had.co.nz/pipes.html#pipes (you don’t have to learn everything, a basic understanding of the usage is enough). Write a short (max. 300 characters, no spaces) explanation of why, how, and when not to use pipes.
+#3. Read about piping from here:https://r4ds.had.co.nz/pipes.html #pipes (you don’t have to learn everything, a basic understanding of the usage is enough). Write a short (max. 300 characters, no spaces) explanation of why, how, and when not to use pipes.
 #4. Familiarize yourself with the apply-family of functions (apply, lapply, sapply etc.) http://uc-r.github.io/apply_family Write a short explanation (max. 300 characters, no spaces) of why they could be useful in your work.
 
-```{r pressure, echo=FALSE}
+```{r task5}
+
+f1  <- function(x) { res <- mean(x)/median(x)
+  return(res)}
+
+f2 <- function(x){ 
+  mi <- min(x)
+  ma <- max(x)
+  res <- x[! x %in% c(mi,ma) ]
+}
+
+#not to use
+#when you use two or more objects in a code because pipes cannot connect codes for different data objects.
 
 ```
 
-```{r}
+
+Task 6 - Basic visualization with R
+Comment: Files are provided in the shared Google Drive folder under Week 1. Examples of how to use visualization functions in R and other highly useful information that may aid you during the course can be found here https://guardacaccia.github.io/Teaching/ The
+nummenmaa-package mentioned within the examples can be installed with the code below if you wish to try some of the examples yourself.
+
+#1. Compare the distributions of the body heights of the two species from the 'magic_guys.csv' dataset graphically 
+##a. using the basic 'hist' function as well as ‘ggplot’ and ‘geom_histogram’ functions from the ggplot2 package. Optimize the plots for example by trying several different 'breaks'.
+Note that ggplot2-based functions give you many more options for changing the visualization parameters, try some of them.
+##b. Do the same comparison as in a. but with boxplots. If you want to use the ggplot2-package, use the functions ‘ggplot’ and ‘geom_boxplot’.
+##c. Save the plots with the ‘png’, ‘pdf’, and ‘svg’ formats. In which situation would you use which file format?
+#2. Load the gene expression data matrix from the ‘microarray_data.tab’ dataset provided in the shared folder, it is a big tabular separated matrix.
+##a. How big is the matrix in terms of rows and columns?
+##b. Count the missing values per gene and visualize this result.
+##c. Find the genes for which there are more than X% (X=10%, 20%, 50%) missing values.
+##d. Replace the missing values by the average expression value for the particular gene. (Note: Imputing data has to be used with caution!)
+#3. Visualize the data in the CO2 dataset in a way that gives you a deeper understanding of the data. What do you see?
+```{r task6}
+install.packages("remotes")
+library(remotes)
+install_url("http://emotion.utu.fi/wp-content/uploads/2019/11
+/nummenmaa_1.0.tar.gz",dependencies=TRUE)
 
 ```
 
