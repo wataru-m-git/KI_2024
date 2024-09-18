@@ -1,0 +1,75 @@
+---
+title: "KI_2024_week1_assignment1"
+author: "muramatsu"
+date: "2024-09-17"
+output: html_document
+---
+
+```{r set library}
+options(repos="https://ftp.yz.yamagata-u.ac.jp/pub/cran/")
+#install.packages("ggplot2")
+#install.packages("tidyverse")
+#install.packages("BiocManager")
+#install.packages("devtools")
+#packages <- c("readr", "ggplot2", "dplyr", "magrittr")
+#install.packages(packages, dependencies = TRUE)
+#install.packages("abind")
+#BiocManager::install("SummarizedExperiment")
+#BiocManager::install("DESeq2", dependencies = TRUE)
+#BiocManager::install("airway")
+
+library(SummarizedExperiment)
+library(ggplot2)
+library(Rtools)
+library(tidyverse)
+library(dplyr)
+library(BiocManager)
+library("airway")
+```
+#Task 4 - Using R example datasets
+#1. Use the R internal CO2 dataset (“data(CO2)”).
+#2. Describe briefly the content of the CO2 dataset using the help #function.
+#3. What is the average and median CO2 uptake of the plants from #Quebec and Mississippi?
+#4. [Optional] In the “airway” example data from Bioconductor, how #many genes are expressed in each sample? How many genes are not expressed in any sample?
+
+```{r cars}
+#task4
+data("CO2")
+help(CO2)
+#The CO2 data frame has 84 rows and 5 columns of data from an experiment on the cold tolerance of the grass species Echinochloa crus-galli.
+
+#The CO2 uptake of six plants from Quebec and six plants from Mississippi was measured at several levels of ambient CO2 concentration. Half the plants of each type were chilled overnight before the experiment was conducted.
+
+mean(CO2$uptake[CO2$Type == "Quebec"])
+median(CO2$uptake[CO2$Type == "Quebec"])
+mean(CO2$uptake[CO2$Type == "Mississippi"])
+median(CO2$uptake[CO2$Type == "Mississippi"])
+
+data("airway")
+d0 <- assay(airway,"counts")%>%as.data.frame()
+
+d1 <- data.frame()
+for (i in 1:8) {
+d <- filter(d0, d0[,i] == 0)%>%nrow()
+d1[1,i] <- d
+d1[2,i] <- nrow(d0) - d
+}
+
+rownames(d1) <- c("non-exp","exp")
+```
+
+#Write a function that calculates the ratio of the mean and the median of a given vector.
+#This is a helpful measure to detect data with outlying values. Note: See Reference for R language
+#2. Write a function that ignores the lowest and the highest value from a given vector and calculate the mean.
+#3. Read about piping from here:https://r4ds.had.co.nz/pipes.html#pipes (you don’t have to learn everything, a basic understanding of the usage is enough). Write a short (max. 300 characters, no spaces) explanation of why, how, and when not to use pipes.
+#4. Familiarize yourself with the apply-family of functions (apply, lapply, sapply etc.) http://uc-r.github.io/apply_family Write a short explanation (max. 300 characters, no spaces) of why they could be useful in your work.
+
+```{r pressure, echo=FALSE}
+
+```
+
+```{r}
+
+```
+
+
